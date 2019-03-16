@@ -1,26 +1,33 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
-		
-body {
-  background-image: url("../imgs/backgroundimage.jpg");
-  background-size: cover;
-  background-repeat: no-repeat, repeat;
-  background-color: #202020;
-  font-weight: bold;
-  color: #00456A;
 
-}
 
 * {box-sizing: border-box}
 
+body {
+		padding: 0px;
+		margin: 0px;
+}
+
+
+.login-hero {
+	background-image: url("../imgs/backgroundimage.jpg");
+  background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #202020;
+	margin: auto;
+	width: 100vw;
+	height: 100vh;
+}
+
+
 .containerLogin {
-	display:table; 
-	height:100%; 
-	wdith: 100px;
+	display:table;
+	height:100%;
 	margin: 0 auto;
 }
 
 .login {
-	margin-top: 150px;
+	margin-top: 50px;
 	vertical-align:middle;
 }
 
@@ -40,7 +47,7 @@ input, .btn {
   display: inline-block;
   font-size: 14px;
   line-height: 20px;
-  text-decoration: none; 
+  text-decoration: none;
 }
 
 input:hover, .btn:hover {
@@ -59,28 +66,40 @@ input[type=submit]:hover {
 }
 
 .col {
-  width: 80%;
+  width: 60%;
   margin: auto;
 }
+
 
 h1.loginTitle{
 	font-family: "Raleway", Arial, Helvetica, sans-serif;
 	text-align: center;
-	color: 00456A;
-	
+	color: #00456A;
+
 }
 
 h1.signInTitle{
 	font-family: "Raleway", Arial, Helvetica, sans-serif;
 	font-weight: lighter;
 	text-align: center;
-	color: 00456A;
-	
+	color: #00456A;
+
 }
 
+@media only screen and (max-width: 944px) {
+	.login-hero {
+		background-image: url("../imgs/BG.PNG");
+	}
+}
 
+@media only screen and (max-width: 767px) {
+	.login-hero {
+			background-image: url("../imgs/BG.PNG");
+	}
+}
 
-
-
-
-
+@media only screen and (max-width: 767px) and (orientation: portrait) {
+	.login-hero {
+		background-image: url("../imgs/BG.PNG");
+	}
+}
