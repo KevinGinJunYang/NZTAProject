@@ -1,2 +1,2 @@
 # NZTAProject
-INFO Project on NZTA 226
+INFO Project on NZTA using AngularJS
