@@ -1,2 +1,2 @@
 # NZTAProject
-INFO Project on NZTA using AngularJS, HTML, CSS
+INFO Project on NZTA using AngularJS(Basic), HTML, CSS
