@@ -1,0 +1,331 @@
+/* Put your css in here */
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,700);
+
+
+* {box-sizing: border-box}
+
+body {
+		padding: 0px;
+		margin: 0px;
+	 font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.login-hero {
+	background-image: url("https://i.imgur.com/LGNUBUD.jpg");
+  background-size: cover;
+	background-repeat: no-repeat;
+	background-color: #202020;
+	margin: auto;
+	width: 100vw;
+	height: 100vh;
+}
+
+
+.containerLogin {
+	display:table;
+	height:100%;
+	margin: 0 auto;
+}
+
+.login {
+	margin-top: 50px;
+	vertical-align:middle;
+}
+
+.loginImage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.basicInput, .btn{
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #DFDEDE;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+/*input, .btn {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #DFDEDE;
+  border-radius: 4px;
+  margin: 5px 0;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}*/
+
+.basicInput:hover, .btn:hover {
+  opacity: 1;
+  border: 1px solid #1F99FF;
+}
+
+input[type=submit] {
+  background-color: #066BA1;
+  color: white;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #086495;
+}
+
+.col {
+  width: 60%;
+  margin: auto;
+}
+
+
+.loginTitle{
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+	text-align: center;
+	color: #00456A;
+
+}
+
+.signInTitle{
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:20px;
+	text-align: center;
+	color: #00456A;
+
+}
+
+@media only screen and (max-width: 944px) {
+	.login-hero {
+		background-image: url("https://i.imgur.com/g1rnfJ6.jpg");
+	}
+}
+.roaddirectory {
+	margin-top: 50px;
+	vertical-align:middle;
+}
+
+.heading2{
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:20px;
+	text-align: center;
+	color: #00456A;
+
+}
+
+.heading3 {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:20px;
+	color: #00456A;
+}
+
+
+.formtext{
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-size:15px;
+	text-align: left;
+	color: #F7F9F9;
+
+}
+
+
+.col2 {
+  width: 80%;
+  margin: auto;
+  margin-bottom: 30px;
+}
+
+.col3 {
+  width: 20%;
+  margin: auto;
+}
+
+
+.SearchAddress{
+	font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:20px;
+	text-align: center;
+	color: #00456A;
+
+}
+
+
+.road {
+	margin-top: 50px;
+	vertical-align:middle;
+	margin: auto;
+	width: 60%;
+	height: 100%;
+}
+
+.navBar{
+  height:100%;
+  width:200px;
+  position:fixed!important;
+  z-index:1;
+  overflow:auto;
+  padding:8px 16px;
+  color:#fff;
+  background-color:#00456A
+}
+
+.navBarTop{
+  position:fixed;
+  width:100%;
+  z-index:1;
+  top:0
+  
+}
+
+.contentArea {
+  margin-left:340px;
+  margin-right:40px
+}
+
+.navItems{
+  width:100%;
+  display:block;
+  padding:8px 16px;
+  text-align:center;
+  border:none;
+  white-space:normal;
+  float:none;
+  outline:0;
+  text-decoration:none;
+  color:#d4d4d6;
+  
+}
+
+.navItems:hover{
+  color:white;
+}
+
+.userNameNav{
+  text-align:center;
+  margin-top: 5px;
+}
+
+.searchresults {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:17px;
+	text-align: left;
+	color: #00456A;
+  margin: auto;
+}
+
+.roadLinks{
+  text-decoration: none;
+  color:#066BA1;
+}
+
+.roadLinks:hover {
+  color:#00456A;
+}
+
+textarea {
+  width: 60%; 
+  padding: 12px; 
+  border: 1px solid #00456A; /* Gray border */
+  border-radius: 4px; 
+  box-sizing: border-box; 
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  resize: vertical 
+}
+
+.roadOptions {
+  margin-left:70px;
+}
+
+
+
+.addRoad {
+  width: 30%;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.addForm {
+  text-align:center;
+  color: #00456A;
+}
+
+.addRoadButton {
+  width: 30%;
+}
+
+.deleteInput {
+  margin-top:20px;
+}
+
+.deleteButton {
+  width:30%;
+  text-align:center;
+  display:block;
+  margin-top:20px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.problems {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+
+}
+
+.projectsButton {
+ margin: 0 auto;
+ width: 656px; 
+ text-align: center;
+}
+
+.projectButton {
+  width:30%;
+  padding: 8px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 8px;
+  border: 1px solid #DFDEDE;
+  border-radius: 4px;
+  opacity: 0.85;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
+
+.projectList {
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:20px;
+	color: #00456A;
+}
+
+.subject{
+  width: 40%;
+}
+
+.heading4{
+  font-family: "Raleway", Arial, Helvetica, sans-serif;
+	font-weight: lighter;
+	font-size:18px;
+	text-align: center;
+	color: #00456A;
+	margin-bottom:-30px;
+	margin-top: 20px;
+}
+

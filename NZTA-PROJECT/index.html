@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html ng-app="plunker">
+
+<head>
+    <meta charset="utf-8" />
+    <title>AngularJS Plunker</title>
+    <script>
+        document.write('<base href="' + document.location + '" />');
+    </script>
+    <link rel="stylesheet" href="style.css" />
+    <script data-require="angular.js@1.4.x" src="https://code.angularjs.org/1.4.12/angular.js" data-semver="1.4.9"></script>
+    <script src="app.js"></script>
+</head>
+
+<body ng-app="plunker" ng-controller="MainCtrl">
+    <!--------------LOGIN PAGE --------------->
+    <div ng-show="loginVisable">
+        <div class="login-hero">
+            <div class="containerLogin">
+                <div class="login">
+                    <form>
+                        <img src="https://i.imgur.com/wGDYA8X.png" width="60%" height="60%" class="loginImage" />
+                        <h1 class="loginTitle">Welcome to TRACK </h1>
+                        <h1 class="signInTitle">Sign in </h1>
+                        <div class="col">
+                            <input class="basicInput" type="text" name="username" placeholder="Username" required ng-model="loginUsername">
+                            <input class="basicInput" type="password" name="password" placeholder="Password" required ng-model="loginPassword">
+                            <input class="basicInput" type="submit" value="Login" ng-click="checkLogin()">
+                            <p ng-bind="feedback"></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!----------MANAGER NAV------------>
+    <div ng-show="navVisable">
+        <nav class="navBar navBarTop" style="width:330px;">
+            <br>
+            <img src="https://i.imgur.com/hGHOUMU.png" width="115%" height="12%" style="margin-top:30px; margin-left:-25px; border-right: 5px solid #00456A;" />
+            <h3 style="padding-top:4px; text-align:center; font-weight:lighter">TRACK</h3>
+            <img src="https://i.imgur.com/iOaQz3r.png" width="15%" height="5%" style="display: block;
+               margin: 0 auto;" />
+            <p class="userNameNav">{{name}}</p>
+            <hr style="width:60%">
+            <div>
+                <a href="" class="navItems" ng-click="showSearch()">Roads</a>
+                <hr style="width:60%">
+                <a href="" class="navItems" ng-click="showUpdate()">Updates</a>
+                <hr style="width:60%">
+                <a href="" class="navItems" ng-click="showProject()">Projects</a>
+                <hr style="width:60%">
+                <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
+                <hr style="width:60%">
+            </div>
+        </nav>
+    </div>
+    <!-----------CONTRACTOR NAV -------------------
+
+      <div ng-show="navVisableContractor">
+         <nav class="navBar navBarTop" style="width:300px;">
+            <br>
+            <img src="https://i.imgur.com/hGHOUMU.png" width="115%" height="12%" style="margin-top:30px; margin-left:-20px; border-right: 5px solid #00456A;"/>
+            <h3 style="padding-top:4px; text-align:center; font-weight:lighter">TRACK</h3>
+            <img src="https://imgur.com/yrON2dv.png" width="15%" height="5%" style="display: block;
+               margin: 0 auto;"/>
+            <p class="userNameNav">{{name}}</p>
+            <hr style="width:60%">
+            <div>
+               <a href="" class="navItems" ng-click="showSearch()">Roads</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showUpdate()">Updates</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showProject()">Projects</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
+               <hr style="width:60%">
+            </div>
+         </nav>
+      </div>-->
+
+    <!---------INSPECTOR NAV ------------------
+
+      <div ng-show="navVisableInspector">
+         <nav class="navBar navBarTop" style="width:300px;">
+            <br>
+            <img src="https://imgur.com/909AqnF.png" width="115%" height="12%" style="margin-top:30px; margin-left:-20px; border-right: 5px solid #00456A;"/>
+            <h3 style="padding-top:4px; text-align:center; font-weight:lighter">TRACK</h3>
+            <img src="https://i.imgur.com/iOaQz3r.png" width="15%" height="5%" style="display: block;
+               margin: 0 auto;"/>
+            <p class="userNameNav">{{name}}</p>
+            <hr style="width:60%">
+            <div>
+               <a href="" class="navItems" ng-click="showSearch()">Roads</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showUpdate()">Updates</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showProject()">Projects</a> 
+               <hr style="width:60%">
+               <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
+               <hr style="width:60%">
+            </div>
+         </nav>
+      </div>-->
+
+    <!-------------UPDATES PAGE---------------------->
+    <div ng-show="showUpdates">
+        <div class="contentArea">
+            <div class="road">
+                <div style="margin-top:80px">
+                    <h1 class="loginTitle"><b>Road Maintenance</b></h1>
+                </div>
+                <h1 class="heading2">Lastest Updates</h1>
+                <div class="roadOptions" style="margin-top:75px">
+                    <div style="margin-top: 50px">
+                        <h1 class="heading3">Recently Added Roads:</h1>
+                        <hr>
+                        <li ng-repeat="x in roads" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showHide(x)">{{x.Location}}</a></li>
+                        <h1 class="heading3" style="margin-top:80px">Recently Added Projects:</h1>
+                        <hr>
+                        <li ng-repeat="x in projects" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showProjectInfo(x)">{{x.Name}} ({{x.Status}})</a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------SEARCH ROAD DIRECTORY PAGE------------------------->
+    <div ng-show="searchVisable">
+        <div class="contentArea">
+            <div class="road">
+                <div>
+                    <div style="margin-top:80px">
+                        <h1 class="loginTitle">Road Directory</h1>
+                        <h2 class="heading2">Search City</h2>
+                    </div>
+                </div>
+                <div class="col2">
+                    <p1 class="formtext">
+                        <input class="basicInput" type="text" placeholder="Search Address" ng-model="searchInput">
+                        <table>
+                            <td>
+                                <input type="submit" class="basicInput" value="Search" ng-click="showAllRoads()">
+                            </td>
+                            <td>
+                                <input type="submit" class="basicInput" value="Create new Road" ng-click="showAdd()">
+                            </td>
+                            <td>
+                                <input type="submit" class="basicInput" value="Delete existing Road" ng-click="showDelete()">
+                            </td>
+                        </table>
+                    </p1>
+                </div>
+                <div class="roadOptions" ng-show="showWellington">
+                    <li ng-repeat="x in roads" style="margin-bottom:20px"><a href="" class="roadLinks" ng-click="showHide(x)">{{x.Location}}</a></li>
+                </div>
+                <p style="text-align:center" ng-bind="feedbackSearch"></p>
+            </div>
+        </div>
+    </div>
+    <!-----------SHOW ROAD INFO PAGE--------------->
+    <div ng-show="showRoad">
+        <div class="contentArea">
+            <div class="road">
+                <div style="margin-top:80px">
+                    <h1 class="loginTitle">{{roadLocation}}</h1>
+                </div>
+                <h2 class="heading2">Road Information</h2>
+                <hr style="width:70%">
+                <table class="searchresults">
+                    <!-- get output from JSON here -->
+                    <tr>
+                        <td><b>Road ID:</b> {{roadID}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Road Code:</b> {{roadCode}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Road Type:</b> {{roadType}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Road Section:</b> {{roadSection}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Road Location:</b> {{roadLocation}}</td>
+                    </tr>
+                    <tr>
+                        <td><b>Road GPS:</b> {{roadGPS}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-----------SHOW PROJECTS PAGE------------------------>
+    <div ng-show="projectVisable">
+        <div class="contentArea">
+            <div class="road">
+                <div style="margin-top:80px">
+                    <h1 class="loginTitle"><b>Road Projects</b></h1>
+                </div>
+                <h1 class="heading2">Projects</h1>
+
+                <div class="projectsButton">
+                    <input type="submit" class="projectButton" value="Create existing project" ng-click="createProject()">
+                    <input type="submit" class="projectButton" value="Delete existing project" ng-click="deleteProject()">
+                </div>
+                <div class="roadOptions" style="margin-top:75px">
+                    <div style="margin-top: 50px">
+                        <h1 class="projectList">Road projects:</h1>
+                        <hr>
+                        <li ng-repeat="x in projects" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showProjectInfo(x)">{{x.Name}} ({{x.Status}})</a></li>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-------------SHOW PROJECT INFORMATION------------------------->
+    <div ng-show="showProjectRoad">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">{{projectName}}</h1>
+            </div>
+            <h2 class="heading2">Project Information</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr>
+                    <td><b>ID:</b> {{projectID}}</td>
+                </tr>
+                <tr>
+                    <td><b>Road:</b> {{projectRoad}}</td>
+                </tr>
+                <tr>
+                    <td><b>Name:</b> {{projectName}}</td>
+                </tr>
+                <tr>
+                    <td><b>Status:</b> {{projectStatus}}</td>
+                </tr>
+                <tr>
+                    <td><b>Start Date:</b> {{projectStartDate}}</td>
+                </tr>
+                <tr>
+                    <td><b>End Date:</b> {{projectEndDate}}</td>
+                </tr>
+                <tr>
+                    <td><b>Contractor:</b> {{projectContractor}}</td>
+                </tr>
+                <tr>
+                    <td><b>Problems:</b>
+                        <tr class="problems">
+                            <th class="problems">Author</th>
+                            <th class="problems">Problems</th>
+                        </tr>
+                        <tr class="problems">
+                            <td class="problems">{{projectProblemsAuthor}}</td>
+                            <td class="problems">{{projectProblemsText}}</td>
+                        </tr>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Comments:</b>
+                        <tr class="problems">
+                            <th class="problems">Author</th>
+                            <th class="problems">Comment</th>
+                        </tr>
+                        <tr class="problems">
+                            <td class="problems">{{projectCommentsAuthor}}</td>
+                            <td class="problems">{{projectCommentsText}}</td>
+                        </tr>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Works:</b>
+                        <tr class="problems">
+                            <th class="problems">Type</th>
+                            <th class="problems">SubContractors</th>
+                            <th class="problems">Status</th>
+                        </tr>
+                        <tr class="problems">
+                            <td class="problems">{{projectWorksType}}</td>
+                            <td class="problems">{{projectWorksSubContractors}}</td>
+                            <td class="problems">{{projectWorksStatus}}</td>
+                        </tr>
+                    </td>
+                </tr>
+            </table>
+            <h2 class="heading4">Add Comment</h2>
+            <textarea class="subject" name="subject" placeholder="Comment here.." style="height:150px" ng-model="userComment"></textarea>
+            <p ng-bind="textFeedback"></p>
+            <table class="searchresults">
+                <tr>
+                    <td><input type="submit" class="basicInput" value="Comment" ng-click="addComment()"></td>
+                    <td><input type="submit" class="basicInput" value="Edit Project" ng-click="editProject()"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!-------------ADD ROAD PAGE ------------------------->
+    <div ng-show="showAddRoad">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Add Road</h1>
+            </div>
+            <h2 class="heading2">Add Road Information</h2>
+            <hr style="width:70%">
+            <form class="addForm">
+                Road ID:
+                <br>
+                <input type="number" class="addRoad basicInput" placeholder="ID" required ng-model="addRoadID">
+                <br> Road Code:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Code" required ng-model="addRoadCode">
+                <br> Road Type:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Type" required ng-model="addRoadType">
+                <br> Road Section:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Section" required ng-model="addRoadSection">
+                <br> Road Location:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Location" required ng-model="addRoadLocation">
+                <br> Road GPS:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="GPS" ng-model="addRoadGPS">
+                <br>
+                <input type="submit" class="addRoadButton basicInput" value="Add Road" ng-click="checkAddedRoad()" required>
+                <p ng-bind="roadFeedback"></p>
+            </form>
+        </div>
+    </div>
+
+    <!--------DELETE ROAD PAGE---------------------------->
+    <div ng-show="showDeleteRoad">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Delete Road</h1>
+            </div>
+            <h2 class="heading2">Select Road</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr ng-repeat="n in roads">
+                    <td>
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.ID}}">{{n.Location}}
+                        <br>
+                    </td>
+                </tr>
+
+            </table>
+            <input type="submit" class="basicInput deleteButton" value="Delete Road " ng-click="confirmDelete(n)">
+            <p class="deleteButton" ng-bind="deleteFeedback"></p>
+        </div>
+    </div>
+
+    <!-------------ADD Project PAGE ------------------------->
+    <div ng-show="showAddProject">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Add Project</h1>
+            </div>
+            <h2 class="heading2">Add Project Information</h2>
+            <hr style="width:70%">
+            <form class="addForm">
+                Project ID:
+                <br>
+                <input type="number" class="addRoad basicInput" placeholder="ID" required ng-model="projectID">
+                <br> Road road:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Road" required ng-model="projectRoad">
+                <br> Road Name:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Name" required ng-model="projectName">
+                <br> Road Status:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="projectStatus">
+                <br> Road Start Date:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Start Date"  ng-model="projectStartDate">
+                <br> Road End Date:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="End Date"  ng-model="projectEndDate">
+                <br> Road Contractor:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Contractor" required ng-model="projectContractor">
+                <br> Road Problems:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Author" required ng-model="projectProblemAuthor">
+                <input type="text" class="addRoad basicInput" placeholder="Problem" required ng-model="projectProblemText">
+                <br> Road Comment:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Author" ng-model="projectCommentAuthor">
+                <input type="text" class="addRoad basicInput" placeholder="Comment" ng-model="projectCommentText">
+                <br> Road Works:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Type" required ng-model="projectWorksType">
+                <input type="text" class="addRoad basicInput" placeholder="SubContractor" required ng-model="projectWorksSubContractor">
+                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="projectWorksStatus">
+                <br>
+                <input type="submit" class="addRoadButton basicInput" value="Add Project" ng-click="checkAddProject()">
+                <p ng-bind="projectFeedback" style="margin-bottom:50px"></p>
+            </form>
+        </div>
+    </div>
+
+    <!--------DELETE Project PAGE---------------------------->
+    <div ng-show="showDeleteProject">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Delete Project</h1>
+            </div>
+            <h2 class="heading2">Select Project</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr ng-repeat="n in projects">
+                    <td>
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.ID}}">{{n.Road}} ({{n.Status}})
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" class="basicInput deleteButton" value="Delete Project " ng-click="confirmDeleteProject()">
+            <p class="deleteButton" ng-bind="deleteProjectFeedback"></p>
+        </div>
+    </div>
+
+    <!---------------------------------->
+
+</body>
+
+</html>
