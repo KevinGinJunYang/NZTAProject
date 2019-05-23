@@ -1,2 +1,2 @@
 # NZTAProject
-INFO Project on NZTA using AngularJS(Basic), HTML, CSS
+One page application for Track Application for NZTA project
