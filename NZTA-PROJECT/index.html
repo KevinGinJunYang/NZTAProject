@@ -35,9 +35,9 @@
     </div>
     <!----------MANAGER NAV------------>
     <div ng-show="navVisable">
-        <nav class="navBar navBarTop" style="width:330px;">
+        <nav class="navBar navBarTop" style="width:300px;">
             <br>
-            <img src="https://i.imgur.com/hGHOUMU.png" width="115%" height="12%" style="margin-top:30px; margin-left:-25px; border-right: 5px solid #00456A;" />
+            <img src="https://i.imgur.com/hGHOUMU.png" width="115%" height="12%" style="margin-top:30px; margin-left:-20px; border-right: 5px solid #00456A;" />
             <h3 style="padding-top:4px; text-align:center; font-weight:lighter">TRACK</h3>
             <img src="https://i.imgur.com/iOaQz3r.png" width="15%" height="5%" style="display: block;
                margin: 0 auto;" />
@@ -55,7 +55,7 @@
             </div>
         </nav>
     </div>
-    <!-----------CONTRACTOR NAV -------------------
+    <!-----------CONTRACTOR NAV ------------------->
 
       <div ng-show="navVisableContractor">
          <nav class="navBar navBarTop" style="width:300px;">
@@ -67,42 +67,36 @@
             <p class="userNameNav">{{name}}</p>
             <hr style="width:60%">
             <div>
-               <a href="" class="navItems" ng-click="showSearch()">Roads</a> 
-               <hr style="width:60%">
-               <a href="" class="navItems" ng-click="showUpdate()">Updates</a> 
-               <hr style="width:60%">
                <a href="" class="navItems" ng-click="showProject()">Projects</a> 
                <hr style="width:60%">
                <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
                <hr style="width:60%">
             </div>
          </nav>
-      </div>-->
+      </div>
 
-    <!---------INSPECTOR NAV ------------------
+    <!---------INSPECTOR NAV ------------------>
 
       <div ng-show="navVisableInspector">
          <nav class="navBar navBarTop" style="width:300px;">
             <br>
-            <img src="https://imgur.com/909AqnF.png" width="115%" height="12%" style="margin-top:30px; margin-left:-20px; border-right: 5px solid #00456A;"/>
+            <img src="https://i.imgur.com/hGHOUMU.png" width="115%" height="12%" style="margin-top:30px; margin-left:-20px; border-right: 5px solid #00456A;"/>
             <h3 style="padding-top:4px; text-align:center; font-weight:lighter">TRACK</h3>
-            <img src="https://i.imgur.com/iOaQz3r.png" width="15%" height="5%" style="display: block;
+            <img src="https://imgur.com/909AqnF.png" width="15%" height="5%" style="display: block;
                margin: 0 auto;"/>
             <p class="userNameNav">{{name}}</p>
             <hr style="width:60%">
             <div>
                <a href="" class="navItems" ng-click="showSearch()">Roads</a> 
                <hr style="width:60%">
-               <a href="" class="navItems" ng-click="showUpdate()">Updates</a> 
-               <hr style="width:60%">
                <a href="" class="navItems" ng-click="showProject()">Projects</a> 
                <hr style="width:60%">
                <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
                <hr style="width:60%">
             </div>
          </nav>
-      </div>-->
-
+      </div>
+      
     <!-------------UPDATES PAGE---------------------->
     <div ng-show="showUpdates">
         <div class="contentArea">
@@ -141,11 +135,11 @@
                             <td>
                                 <input type="submit" class="basicInput" value="Search" ng-click="showAllRoads()">
                             </td>
-                            <td>
+                            <td ng-show="managerMode">
                                 <input type="submit" class="basicInput" value="Create new Road" ng-click="showAdd()">
                             </td>
-                            <td>
-                                <input type="submit" class="basicInput" value="Delete existing Road" ng-click="showDelete()">
+                            <td ng-show="managerMode">
+                                <input type="submit" class="basicInput" value="Delete Road" ng-click="showDelete()">
                             </td>
                         </table>
                     </p1>
@@ -195,17 +189,17 @@
         <div class="contentArea">
             <div class="road">
                 <div style="margin-top:80px">
-                    <h1 class="loginTitle"><b>Road Projects</b></h1>
+                    <h1 class="loginTitle"><b>Maintanence Projects</b></h1>
                 </div>
                 <h1 class="heading2">Projects</h1>
 
-                <div class="projectsButton">
+                <div class="projectsButton" ng-show="managerMode">
                     <input type="submit" class="projectButton" value="Create existing project" ng-click="createProject()">
                     <input type="submit" class="projectButton" value="Delete existing project" ng-click="deleteProject()">
                 </div>
                 <div class="roadOptions" style="margin-top:75px">
                     <div style="margin-top: 50px">
-                        <h1 class="projectList">Road projects:</h1>
+                        <h1 class="projectList">Maintenance projects:</h1>
                         <hr>
                         <li ng-repeat="x in projects" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showProjectInfo(x)">{{x.Name}} ({{x.Status}})</a></li>
 
@@ -251,9 +245,9 @@
                             <th class="problems">Author</th>
                             <th class="problems">Problems</th>
                         </tr>
-                        <tr class="problems">
-                            <td class="problems">{{projectProblemsAuthor}}</td>
-                            <td class="problems">{{projectProblemsText}}</td>
+                        <tr class="problems" ng-repeat="x in currentProblems">
+                            <td class="problems">{{x.Author}}</td>
+                            <td class="problems">{{x.Text}}</td>
                         </tr>
                     </td>
                 </tr>
@@ -263,9 +257,9 @@
                             <th class="problems">Author</th>
                             <th class="problems">Comment</th>
                         </tr>
-                        <tr class="problems">
-                            <td class="problems">{{projectCommentsAuthor}}</td>
-                            <td class="problems">{{projectCommentsText}}</td>
+                        <tr class="problems" ng-repeat="x in currentComments">
+                            <td class="problems" >{{x.Author}}</td>
+                            <td class="problems">{{x.Text}}</td>
                         </tr>
                     </td>
                 </tr>
@@ -276,23 +270,29 @@
                             <th class="problems">SubContractors</th>
                             <th class="problems">Status</th>
                         </tr>
-                        <tr class="problems">
-                            <td class="problems">{{projectWorksType}}</td>
-                            <td class="problems">{{projectWorksSubContractors}}</td>
-                            <td class="problems">{{projectWorksStatus}}</td>
+                        <tr class="problems" ng-repeat="x in currentWorks">
+                            <td class="problems">{{x.Type}}</td>
+                            <td class="problems">{{x.SubContractors}}</td>
+                            <td class="problems">{{x.Status}}</td>
                         </tr>
                     </td>
                 </tr>
             </table>
-            <h2 class="heading4">Add Comment</h2>
-            <textarea class="subject" name="subject" placeholder="Comment here.." style="height:150px" ng-model="userComment"></textarea>
-            <p ng-bind="textFeedback"></p>
+            <h2 class="heading4">Add Comment/Problem</h2>
+            <textarea class="subject" name="subject" placeholder="Type here.." style="height:150px" ng-model="userComment"></textarea>
             <table class="searchresults">
                 <tr>
-                    <td><input type="submit" class="basicInput" value="Comment" ng-click="addComment()"></td>
-                    <td><input type="submit" class="basicInput" value="Edit Project" ng-click="editProject()"></td>
+                    <td><input type="submit" class="basicInput" value="Add Comment" ng-click="addComment()"></td>
+                    <td ng-show="managerMode"><input type="submit" class="basicInput" value="Delete Comment" ng-click="deleteComment()"></td>
+                    <td ng-show="managerMode"><input type="submit" class="basicInput" value="Edit Project" ng-click="editProject()"></td>
+                    <td><input type="submit" class="basicInput" value="Add Problem" ng-click="addProblem()"></td>
+                    <td><input type="submit" class="basicInput" value="Delete Problem" ng-click="deleteProblem()"></td>
+                    <td ng-show="contractorMode"><input type="submit" class="basicInput" value="Add Works" ng-click="editWorks()"></td>
+                    <td ng-show="contractorMode"><input type="submit" class="basicInput" value="Delete Works" ng-click="deleteWorks()"></td>
+                    
                 </tr>
             </table>
+        <p style="text-align:center; color: #086495" ng-bind="textFeedback"></p>
         </div>
     </div>
     <!-------------ADD ROAD PAGE ------------------------->
@@ -366,19 +366,26 @@
                 <input type="number" class="addRoad basicInput" placeholder="ID" required ng-model="projectID">
                 <br> Road road:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Road" required ng-model="projectRoad">
+                <input type="number" class="addRoad basicInput" placeholder="Road" required ng-model="projectRoad">
                 <br> Road Name:
                 <br>
                 <input type="text" class="addRoad basicInput" placeholder="Name" required ng-model="projectName">
                 <br> Road Status:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="projectStatus">
+                <input list="statusList" class="addRoad basicInput" placeholder="Status" required ng-model="projectStatus">
+                    <datalist id="statusList">
+                      <option value="Closed">
+                      <option value="Waiting">
+                      <option value="Scheduled">
+                      <option value="Opened">
+                      <option value="Rejected">
+                    </datalist></td>
                 <br> Road Start Date:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Start Date"  ng-model="projectStartDate">
+                <input type="date" class="addRoad basicInput" placeholder="Start Date"  ng-model="projectStartDate">
                 <br> Road End Date:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="End Date"  ng-model="projectEndDate">
+                <input type="date" class="addRoad basicInput" placeholder="End Date"  ng-model="projectEndDate">
                 <br> Road Contractor:
                 <br>
                 <input type="text" class="addRoad basicInput" placeholder="Contractor" required ng-model="projectContractor">
@@ -414,7 +421,7 @@
                 <!-- get output from JSON here -->
                 <tr ng-repeat="n in projects">
                     <td>
-                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.ID}}">{{n.Road}} ({{n.Status}})
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.ID}}">{{n.Name}} ({{n.Status}})
                         <br>
                     </td>
                 </tr>
@@ -424,7 +431,185 @@
         </div>
     </div>
 
-    <!---------------------------------->
+    <!----------EDIT PROJECT PAGE------------------------>
+    <div ng-show="showEditProject">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">{{projectName}}</h1>
+            </div>
+            <h2 class="heading2">Edit Project Information</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr>
+                    <td><b>ID:</b> <input type="number" class="editButton" placeholder="{{projectID}}"  ng-model="editID"></td>
+                </tr>
+                <tr>
+                    <td><b>Road:</b> <input type="number" class="editButton" value="{{projectRoad}}"  ng-model="editRoad"></td>
+                </tr>
+                <tr>
+                    <td><b>Name:</b><input type="text" placeholder="{{projectName}}" class="editButton" ng-model="editName"></td>
+                </tr>
+                <tr>
+                    <td><b>Status:</b><input list="statusList" class="editButton" placeholder="{{projectStatus}}"  ng-model="editStatus">
+                    <datalist id="statusList">
+                      <option value="Closed">
+                      <option value="Waiting">
+                      <option value="Scheduled">
+                      <option value="Opened">
+                      <option value="Rejected">
+                    </datalist></td>
+                </tr>
+                <tr>
+                    <td><b>Start Date:</b><input type="text" class="editButton" placeholder="{{projectStartDate}}"  ng-model="editStart"></td>
+                </tr>
+                <tr>
+                    <td><b>End Date:</b><input type="text" class="editButton" placeholder="{{projectEndDate}}"  ng-model="editEnd"></td>
+                </tr>
+                <tr>
+                    <td><b>Contractor:</b><input type="text" class="editButton" placeholder="{{projectContractor}}"  ng-model="editContractor"></td>
+                </tr>
+                <tr>
+                    <td><b>Problems:</b>
+                        <tr class="problems">
+                            <th class="problems">Author</th>
+                            <th class="problems">Problems</th>
+                        </tr>
+                        <tr class="problems" ng-repeat="x in currentProblems">
+                            <td class="problems">{{x.Author}}</td>
+                            <td class="problems">{{x.Text}}</td>
+                        </tr>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Comments:</b>
+                        <tr class="problems">
+                            <th class="problems">Author</th>
+                            <th class="problems">Comment</th>
+                        </tr>
+                        <tr class="problems" ng-repeat="x in currentComments">
+                            <td class="problems" >{{x.Author}}</td>
+                            <td class="problems">{{x.Text}}</td>
+                        </tr>
+                    </td>
+                </tr>
+                <tr>
+                    <td><b>Works:</b>
+                        <tr class="problems">
+                            <th class="problems">Type</th>
+                            <th class="problems">SubContractors</th>
+                            <th class="problems">Status</th>
+                        </tr>
+                        <tr class="problems" ng-repeat="x in currentWorks">
+                            <td class="problems">{{x.Type}}</td>
+                            <td class="problems">{{x.SubContractors}}</td>
+                            <td class="problems">{{x.Status}}</td>
+                        </tr>
+                    </td>
+                </tr>
+            </table>
+            <table class="searchresults">
+                <tr>
+                    <td><input type="submit" class="basicInput" value="Save Changes" ng-click="saveProject()" style="margin-top:30px"></td>
+                </tr>
+            </table>
+        <p style="text-align:center; color: #086495" ng-bind="textFeedback"></p>
+        </div>
+    </div>
+<!-------DEL COMMENT FROM SERVER-------------------------------->
+
+    <div ng-show="showDeleteComment">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Delete Comment</h1>
+            </div>
+            <h2 class="heading2">Select Comment</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr ng-repeat="n in currentComments">
+                    <td>
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.Text}}">Author : {{n.Author}}  --  Comment : [{{n.Text}}]
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" class="basicInput deleteButton" value="Delete Comment " ng-click="delComment()">
+            <p class="deleteButton" ng-bind="delCommentFeedback"></p>
+        </div>
+    </div>
+    
+    <!-------DEL PROBLEM FROM SERVER------------------------------------>
+    
+    <div ng-show="showDeleteProblem">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Delete Problem</h1>
+            </div>
+            <h2 class="heading2">Select Problem</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr ng-repeat="n in currentProblems">
+                    <td>
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.Text}}">Author : {{n.Author}}  --  Problem : [{{n.Text}}]
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" class="basicInput deleteButton" value="Delete Problem " ng-click="delProblem()">
+            <p class="deleteButton" ng-bind="delProblemFeedback"></p>
+        </div>
+    </div>
+    
+    
+    <!-------------ADD NEW WORKS TO SERVER--------------------------------->
+    
+    <div ng-show="showEditWorks">
+      <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Add Project Works</h1>
+            </div>
+            <h2 class="heading2">Add Works</h2>
+            <hr style="width:70%">
+            <form class="addForm">
+                <br> Road Works:
+                <br>
+                <input type="text" class="addRoad basicInput" placeholder="Type" required ng-model="editType">
+                <input type="text" class="addRoad basicInput" placeholder="Sub Contractor" required ng-model="editContractor">
+                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="editStatus">
+                <br>
+                <input type="submit" class="addRoadButton basicInput" value="Add Works" ng-click="editWorkInfo()">
+                <p ng-bind="addWorksFeedback" style="margin-bottom:50px"></p>
+            </form>
+        </div>
+    </div>
+    
+ <!----------------DEL FROM WORKS LOCALY----------------------------------------------->   
+ 
+ <div ng-show="showDeleteWorks">
+        <div class="contentArea">
+            <div style="margin-top:80px">
+                <h1 class="loginTitle">Delete Works</h1>
+            </div>
+            <h2 class="heading2">Select Works</h2>
+            <hr style="width:70%">
+            <table class="searchresults">
+                <!-- get output from JSON here -->
+                <tr ng-repeat="n in currentWorks">
+                    <td>
+                        <input class="deleteInput" type="radio" ng-model="$parent.selected" ng-value="{{n.SubContractors}}">Type : {{n.Type}}  --  Subcontractors : {{n.SubContractors}} -- Status : {{n.Status}}
+                        <br>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" class="basicInput deleteButton" value="Delete Works " ng-click="delWorks()">
+            <p class="deleteButton" ng-bind="delWorksFeedback"></p>
+        </div>
+    </div>
+ 
+ 
+ <!---------------------------------------------------->
 
 </body>
 
