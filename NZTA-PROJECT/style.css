@@ -12,7 +12,8 @@ body {
 
 
 .login-hero {
-	background-image: url("https://i.imgur.com/LGNUBUD.jpg");
+	/*background-image: url("https://i.imgur.com/LGNUBUD.jpg");*/
+	background-image: url("https://i.imgur.com/g1rnfJ6.jpg");
   background-size: cover;
 	background-repeat: no-repeat;
 	background-color: #202020;
@@ -329,3 +330,13 @@ textarea {
 	margin-top: 20px;
 }
 
+.editButton {
+  text-align:center;
+  border: 1px solid #DFDEDE;
+  border-radius: 4px;
+  opacity: 0.85;
+  display: inline-block;
+  font-size: 14px;
+  line-height: 20px;
+  text-decoration: none;
+}
