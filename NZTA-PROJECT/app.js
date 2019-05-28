@@ -5,15 +5,24 @@ app.controller('MainCtrl', function($scope, $http) {
     //---------VIEW TYPES ----------------------
     $scope.showRoad = false;
     $scope.searchVisable = false;
-    $scope.showUpdates = true;
-    $scope.navVisable = true;
-    $scope.loginVisable = false;
+    $scope.showUpdates = false;
+    $scope.navVisable = false;
+    $scope.loginVisable = true;
     $scope.projectVisable = false;
     $scope.showProjectRoad = false;
     $scope.name = "Jennifer Lawrence";
     $scope.showAddRoad = false;
     $scope.showDeleteRoad = false;
     $scope.showDeleteProject = false;
+    $scope.showEditProject = false;
+    $scope.showEditWorks = false;
+    $scope.showDeleteProblem = false;
+    $scope.showDeleteComment = false;
+    $scope.navVisableInspector = false;
+    $scope.navVisableContractor = false;
+    $scope.managerMode = false;
+    $scope.contractorMode = false;
+    $scope.showArchive = false;
     //ROAD
     $scope.roads = null;
     $scope.roadID = null;
@@ -39,6 +48,10 @@ app.controller('MainCtrl', function($scope, $http) {
     $scope.projectWorksType = null;
     $scope.projectWorksSubContractors = null;
     $scope.projectWorksStatus = null;
+    $scope.currentComments = null;
+    $scope.currentProblems = null;
+    $scope.currentWorks = null;
+    
 
     //------ SHOW DIFFERENT PAGES FROM NAV BAR ----------
 
@@ -52,6 +65,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteRoad = false;
         $scope.addProject = false;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
         //READ IN DIFF VALUES 
         for (i = 0; i < $scope.roads.length; i++) {
             if ($scope.roads[i] == x) {
@@ -88,6 +102,12 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.addProject = false;
         $scope.showDeleteProject = false;
         $scope.showAddProject = false;
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
+        $scope.showArchives = false;
 
 
     }
@@ -103,6 +123,13 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.addProject = false;
         $scope.showDeleteProject = false;
         $scope.showAddProject = false;
+        $scope.textFeedback = "";
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
+        $scope.showArchives = false;
 
     }
 
@@ -118,6 +145,13 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteProject = false;
         $scope.addNewProject = false;
         $scope.showAddProject = false;
+        $scope.textFeedback = "";
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
+        $scope.showArchives = false;
 
     }
 
@@ -128,12 +162,24 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.projectVisable = $scope.projectVisable = false;
         $scope.loginVisable = $scope.loginVisable = true;
         $scope.navVisable = $scope.navVisable = false;
+        $scope.navVisableInspector = false;
+        $scope.navVisableContractor = false;
         $scope.feedback = "";
         $scope.showProjectRoad = false
         $scope.showAddRoad = false;
         $scope.showDeleteRoad = false;
         $scope.addProject = false;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
+        $scope.managerMode = false;
+        $scope.contractorMode = false;
+        $scope.showArchives = false;
+        $scope.loginUsername = "";
+        $scope.loginPassword = "";
     }
 
 
@@ -148,6 +194,11 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showAddRoad = false;
         $scope.showDeleteRoad = false;
         $scope.showDeleteProject = true;
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
     }
 
 
@@ -163,10 +214,18 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteRoad = false;
         $scope.addProject = false;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
+        $scope.showDeleteComment = false;
+        $scope.showDeleteProblem = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
 
 
         for (i = 0; i < $scope.projects.length; i++) {
             if ($scope.projects[i] == x) {
+                $scope.currentComments = $scope.projects[i].Comments;
+                $scope.currentProblems = $scope.projects[i].Problems;
+                $scope.currentWorks = $scope.projects[i].Works;
                 $scope.projectID = $scope.projects[i].ID;
                 $scope.projectRoad = $scope.projects[i].Road;
                 $scope.projectName = $scope.projects[i].Name;
@@ -174,23 +233,11 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.projectStartDate = $scope.projects[i].StartDate;
                 $scope.projectEndDate = $scope.projects[i].EndDate;
                 $scope.projectContractor = $scope.projects[i].Contractor;
-                for (j = 0; j < $scope.projects[i].Problems.length; j++) {
-                    $scope.projectProblemsAuthor = $scope.projects[i].Problems[j].Author;
-                    $scope.projectProblemsText = $scope.projects[i].Problems[j].Text;
-                }
-                for (v = 0; v < $scope.projects[i].Works.length; v++) {
-                    $scope.projectWorksType = $scope.projects[i].Works[v].Type;
-                    $scope.projectWorksSubContractors = $scope.projects[i].Works[v].SubContractors;
-                    $scope.projectWorksStatus = $scope.projects[i].Works[v].Status;
-                }
-
-                for (b = 0; b < $scope.projects[i].Comments.length; b++) {
-                    $scope.projectCommentsAuthor = $scope.projects[i].Comments[b].Author;
-                    $scope.projectCommentsText = $scope.projects[i].Comments[b].Text;
-                }
-
+                
             }
         }
+        
+        
 
     }
 
@@ -204,6 +251,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteRoad = false;
         $scope.addProject = false;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
     }
 
     $scope.showDelete = function() {
@@ -216,6 +264,8 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteRoad = true;
         $scope.addProject = false;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
+        $scope.showDeleteWorks = false;
     }
 
     $scope.createProject = function() {
@@ -230,8 +280,62 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showDeleteProject = true;
         $scope.showAddProject = true;
         $scope.showDeleteProject = false;
+        $scope.showEditProject = false;
+        $scope.showEditWorks = false;
+        $scope.showDeleteWorks = false;
     }
+    
+     $scope.editProject = function() {
+      $scope.showEditProject = true;
+      $scope.showProjectRoad = false;
 
+    }
+    
+    $scope.deleteComment = function(){
+      $scope.showDeleteComment = true;
+      $scope.showProjectRoad = false;
+     
+    }
+    
+    $scope.deleteProblem = function() {
+      $scope.showDeleteProblem = true;
+      $scope.showProjectRoad = false;
+      
+    }
+    
+    $scope.editWorks = function() {
+      $scope.showEditWorks = true;
+      $scope.showProjectRoad = false;
+     
+    }
+    
+    $scope.deleteWorks = function(){
+      $scope.showDeleteWorks = true;
+      $scope.showProjectRoad = false;
+      
+    }
+    
+    $scope.showArchive = function(){
+      $scope.showArchives = true;
+      $scope.showUpdates = $scope.showUpdates = false;
+      $scope.searchVisable = $scope.searchVisable = false;
+      $scope.showRoad = $scope.showRoad = false;
+      $scope.projectVisable = $scope.projectVisable = false;
+      $scope.showProjectRoad = false
+      $scope.showAddRoad = false;
+      $scope.showDeleteRoad = false;
+      $scope.addProject = false;
+      $scope.showDeleteProject = false;
+      $scope.addNewProject = false;
+      $scope.showAddProject = false;
+      $scope.textFeedback = "";
+      $scope.showEditProject = false;
+      $scope.showDeleteComment = false;
+      $scope.showDeleteProblem = false;
+      $scope.showEditWorks = false;
+      $scope.showDeleteWorks = false;
+    }
+    
 
     //----------LOGIN FUNCTION ------------------------------
 
@@ -246,18 +350,34 @@ app.controller('MainCtrl', function($scope, $http) {
 
     $scope.checkLogin = function() {
 
-        //let inspector = "inspecter"
         for (i = 0; i < $scope.logins.length; i++) {
             if ($scope.logins[i].LoginName == $scope.loginUsername && $scope.logins[i].Password == $scope.loginPassword) {
-                /*if($scope.logins[i].UserType == inspector){
-                   $scope.loginVisable = $scope.loginVisable = false;
-                    $scope.navVisableContractor = true;
-                     $scope.loginVisable = $scope.loginVisable = false;
-                }*/
-                $scope.loginVisable = $scope.loginVisable = false;
-                $scope.navVisable = $scope.navVisable = true;
-                $scope.name = $scope.loginUsername.toUpperCase();
-                $scope.showUpdates = true;
+              if($scope.logins[i].UserType =='inspector'){
+                  $scope.loginVisable = $scope.loginVisable = false;
+                  $scope.navVisable = false;
+                  $scope.navVisableInspector = true;
+                  $scope.name = $scope.loginUsername.toUpperCase();
+                  $scope.searchVisable = true;
+                  $scope.navVisableContractor = false;
+              } else if ($scope.logins[i].UserType =='contractor'){
+                  $scope.loginVisable = $scope.loginVisable = false;
+                  $scope.navVisable = false;
+                  $scope.navVisableInspector = false;
+                  $scope.navVisableContractor = true;
+                  $scope.name = $scope.loginUsername.toUpperCase();
+                  $scope.projectVisable = true;
+                  $scope.contractorMode = true;
+                
+              } else if ($scope.logins[i].UserType =='manager'){
+                  $scope.loginVisable = $scope.loginVisable = false;
+                  $scope.navVisable = $scope.navVisable = true;
+                  $scope.navVisableInspector = false;
+                  $scope.navVisableContractor = false;
+                  $scope.name = $scope.loginUsername.toUpperCase();
+                  $scope.showUpdates = true;
+                  $scope.managerMode = true;
+                
+              }
             } else {
                 $scope.feedback = "Invalid password or username.";
             }
@@ -275,7 +395,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //-----------GET PROJECT INFO FROM HTTPGET -------------------------------
 
-    $scope.projectCall = $http.get('https://track.sim.vuw.ac.nz/api/bbbb/project_dir.json')
+    $scope.projectCall = $http.get('https://track.sim.vuw.ac.nz/api/acbbb/project_dir.json')
         .then(
             function successCall(response) {
                 $scope.projects = response.data.Projects;
@@ -358,7 +478,7 @@ app.controller('MainCtrl', function($scope, $http) {
         }
 
         var toDelete = JSON.stringify(deleteRoadData);
-
+        
         $scope.deleteRoad = $http({
                 method: "DELETE",
                 url: deleteLink,
@@ -377,7 +497,7 @@ app.controller('MainCtrl', function($scope, $http) {
     };
 
     //------------------ADD PROJECT FROM JSON SERVER --------------------------------
-    var addProjectLink = 'https://track.sim.vuw.ac.nz/api/bbbb/update.project.json';
+    var addProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
 
     $scope.checkAddProject = function() {
       
@@ -440,22 +560,11 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //-------------------DELETE PROJECT FORM JSON SERVER ---------------------------
     $scope.confirmDeleteProject = function(){
-    var deleteProjectLink = 'https://track.sim.vuw.ac.nz/api/bbbb/delete.project.' + $scope.selected + '.json';
+    var deleteProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbb/delete.project.' + $scope.selected + '.json';
     var deleteProjectData = null;
     var deleteComments = null;
     var deleteWorks = null;
     var deleteProblems = null;
-    
-    /*for (var j = 0; j < $scope.projects.length; j++) {
-            /*if ($scope.selected == $scope.projects[j].ID) {
-              for (z = 0; z < $scope.projects[j].Problems.length; z++) {
-              deleteComments = {
-                  "Author": $scope.projects[j].Comments[z].Author,
-                  "Text": $scope.projects[j].Comments[z].Text
-                };
-            }
-            }
-    }**/
     
     for (var i = 0; i < $scope.projects.length; i++) {
             if ($scope.selected == $scope.projects[i].ID) {
@@ -521,39 +630,300 @@ app.controller('MainCtrl', function($scope, $http) {
 
 
 
-//-----------------------DOESNT WORK ----------------------------------------
+//-----------------------ADD COMMENT BOTH LOCALY AND TO SERVER  ----------------------------------------
+   
     $scope.addComment = function() {
-      var addCommentLink = 'https://track.sim.vuw.ac.nz/api/bbbb/update.project.json';
-      
+      var addCommentLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+     
       var newComment = {
             "Author": $scope.name,
             "Text": $scope.userComment
         };
         
-         
+      for(i =0; i < $scope.projects.length; i++){
+        if($scope.projectID == $scope.projects[i].ID){
+           $scope.projects[i].Comments.push(newComment);
+        }
+        $scope.currentComments = $scope.projects[i].Comments;
+      }
+      
+      var problems = [{
+            "Author": $scope.projectProblemAuthor,
+            "Text": $scope.projectProblemText
+        }];
+        
+        
+
+      var works = [{
+            "Type": $scope.projectWorksType,
+            "SubContractors": $scope.projectWorksSubContractor,
+            "Status": $scope.projectWorksStatus
+        }];
+        
+      var sourceObj = { 
+	    "ID": $scope.projectID,
+      "Road": $scope.projectRoad,
+	    "Name": $scope.projectName,
+	    "Status": $scope.projectStatus,
+      "StartDate": $scope.projectStartDate,
+      "EndDate": $scope.projectEndDate,
+      "Contractor": $scope.projectContractor,
+	    "Problems": $scope.currentProblems,
+      "Works": $scope.currentWorks,
+	    "Comments": $scope.currentComments
+    };
+    
+    
          $scope.addNewComment = $http({
                 method: "POST",
                 url: addCommentLink,
-                data: newComment,
+                data: sourceObj,
               
             })
             .then(
                 function sucessCall(response) {
-                    $scope.projectFeedback = "Road project successfully!. ";
-                    //$scope.projects.push(newProjectData);
+                    $scope.textFeedback = "Comment added!";
+                     $scope.currentComments = $scope.projects[$scope.projectID].Comments;
+                     for(i = 0; i < $scope.projects.length; i++){
+                        if($scope.projectID == $scope.projects[i].ID){
+                          $scope.projects[i].Comments.push(newComment);
+                        }
+                     }
 
                 }, function errorCall(){
-                  $scope.projectFeedback = "Failed to add project";
+                  $scope.textFeedback = "Failed to add comment";
                 }
                   
             );
               
       }
-//---------------------------------------------------------------
-    $scope.editProject = function() {
-      
+   
+//-----------SAVE CHANGES----------------------------------
+
+  $scope.saveProject = function(){
+    var updateLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+    
+    for(i = 0; i < $scope.projects.length; i++){
+      if($scope.projects[i].ID == $scope.projectID){
+      $scope.projects[i].ID = $scope.editID
+      $scope.projects[i].Road = $scope.projectRoad
+      $scope.projects[i].Name = $scope.editName
+      $scope.projects[i].Status = $scope.editStatus
+      $scope.projects[i].StartDate = $scope.editStart
+      $scope.projects[i].EndDate = $scope.editEnd
+      $scope.projects[i].Contractor = $scope.editContractor
+      }
     }
-//---------------------------------------------------------------
+    
+    var sourceObj = { 
+	    "ID": $scope.editID,
+      "Road": $scope.projectRoad,
+	    "Name": $scope.editName,
+	    "Status": $scope.editStatus,
+      "StartDate": $scope.editStart,
+      "EndDate": $scope.editEnd,
+      "Contractor": $scope.editContractor,
+	    "Problems": $scope.currentProblems,
+      "Works": $scope.currentWorks,
+	    "Comments": $scope.currentComments
+    };
+    
+    $scope.updateProject = $http({
+                method: "POST",
+                url: updateLink,
+                data: sourceObj,
+              
+            })
+            .then(
+                function sucessCall(response) {
+                    $scope.textFeedback = "Save successful!";
+
+                }, function errorCall(){
+                  $scope.textFeedback = "Failed to save";
+                }
+                  
+            );
+  }
+
+//-------------DELETE COMMENT FROM LOCAL ONLY  -----------------------------------------------
+
+  $scope.delComment = function() {
+      
+    var delCommenttt = null;
+    
+    for (var i = 0; i < $scope.currentComments.length; i++) {
+        if ($scope.selected == $scope.currentComments[i].Text) {
+                delCommenttt = [{
+                  "Author": $scope.currentComments[i].Author,
+                  "Text": $scope.currentComments[i].Text
+                }];
+        }
+    }
+          
+     $scope.delCommentFeedback = " Deleted Successfully!. ";
+     $scope.currentComments.pop(delCommenttt);
+            
+            
+            
+    }
+    
+
+//--------------ADD PROBLEM TO SERVER--------------------------------------------------
+
+  $scope.addProblem = function() {
+    var addProblemLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+     
+      var newProblem = {
+            "Author": $scope.name,
+            "Text": $scope.userComment
+        };
+        
+      for(i =0; i < $scope.projects.length; i++){
+        if($scope.projectID == $scope.projects[i].ID){
+           $scope.projects[i].Problems.push(newProblem);
+        }
+        $scope.currentProblems = $scope.projects[i].Problems;
+      }
+      
+        
+      var sourceObj = { 
+	    "ID": $scope.projectID,
+      "Road": $scope.projectRoad,
+	    "Name": $scope.projectName,
+	    "Status": $scope.projectStatus,
+      "StartDate": $scope.projectStartDate,
+      "EndDate": $scope.projectEndDate,
+      "Contractor": $scope.projectContractor,
+	    "Problems": $scope.currentProblems,
+      "Works": $scope.currentWorks,
+	    "Comments": $scope.currentComments
+    };
+    
+    
+         $scope.addNewComment = $http({
+                method: "POST",
+                url: addProblemLink,
+                data: sourceObj,
+              
+            })
+            .then(
+                function sucessCall(response) {
+                    $scope.textFeedback = "Problem added!";
+                     for(i = 0; i < $scope.projects.length; i++){
+                        if($scope.projectID == $scope.projects[i].ID){
+                          $scope.projects[i].Problems.push(newProblem);
+                        }
+                     }
+
+                }, function errorCall(){
+                  $scope.textFeedback = "Failed to add Problem";
+                }
+                  
+            );
+  }
+
+
+
+
+//--------------DELETE PROBLEM FROM LOCALLY -------------------------
+
+  $scope.delProblem = function(){
+    var delProb = null;
+    
+    for (var i = 0; i < $scope.currentProblems.length; i++) {
+        if ($scope.selected == $scope.currentProblems[i].Text) {
+                delProb = [{
+                  "Author": $scope.currentProblems[i].Author,
+                  "Text": $scope.currentProblems[i].Text
+                }];
+        }
+    }
+          
+     $scope.delProblemFeedback = " Deleted Successfully!. ";
+     $scope.currentProblems.pop(delProb);
+  }
+
+
+
+
+
+//------------ADD WORKS TO SERVER --------------------------------
+
+  $scope.editWorkInfo = function(){
+    var editWorksLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+     
+      var editedWorks = {
+            "Type": $scope.editType,
+            "SubContractors": $scope.editContractor,
+            "Status": $scope.editStatus
+        };
+        
+      for(i =0; i < $scope.projects.length; i++){
+        if($scope.projectID == $scope.projects[i].ID){
+           $scope.projects[i].Works.push(editedWorks);
+        }
+        $scope.currentProblems = $scope.projects[i].Problems;
+      }
+      
+        
+      var sourceObj = { 
+	    "ID": $scope.projectID,
+      "Road": $scope.projectRoad,
+	    "Name": $scope.projectName,
+	    "Status": $scope.projectStatus,
+      "StartDate": $scope.projectStartDate,
+      "EndDate": $scope.projectEndDate,
+      "Contractor": $scope.projectContractor,
+	    "Problems": $scope.currentProblems,
+      "Works": $scope.currentWorks,
+	    "Comments": $scope.currentComments
+    };
+    
+    
+         $scope.addNewComment = $http({
+                method: "POST",
+                url: editWorksLink,
+                data: sourceObj,
+              
+            })
+            .then(
+                function sucessCall(response) {
+                    $scope.addWorksFeedback = "Works added!";
+                     for(i = 0; i < $scope.projects.length; i++){
+                        if($scope.projectID == $scope.projects[i].ID){
+                          $scope.projects[i].Works.push(editedWorks);
+                        }
+                     }
+
+                }, function errorCall(){
+                  $scope.addWorksFeedback = "Failed to add works";
+                }
+                  
+            );
+    
+  }
+
+
+//--------------DEL WORKS FROM LOCAL------------------------------------------------
+
+  $scope.delWorks = function(){
+    var workDel = null;
+    
+    for (var i = 0; i < $scope.currentWorks.length; i++) {
+        if ($scope.selected == $scope.currentWorks[i].SubContractors) {
+                workDel = [{
+                  "Type": $scope.currentWorks[i].Type,
+                  "SubContractors": $scope.currentWorks[i].SubContractors,
+                  "Status": $scope.currentWorks[i].Status
+                }];
+        }
+    }
+          
+     $scope.delWorksFeedback = " Deleted Successfully!. ";
+     $scope.currentWorks.pop(workDel);
+  }
+
+//---------------------------------------------------------------------
 
 
 });
