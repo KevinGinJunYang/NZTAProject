@@ -51,7 +51,8 @@ app.controller('MainCtrl', function($scope, $http) {
     $scope.currentComments = null;
     $scope.currentProblems = null;
     $scope.currentWorks = null;
-    
+    $scope.archivedValues = [];
+    $scope.archivedProjects = [];
 
     //------ SHOW DIFFERENT PAGES FROM NAV BAR ----------
 
@@ -66,6 +67,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.addProject = false;
         $scope.showDeleteProject = false;
         $scope.showEditProject = false;
+        $scope.showArchives = false;
         //READ IN DIFF VALUES 
         for (i = 0; i < $scope.roads.length; i++) {
             if ($scope.roads[i] == x) {
@@ -75,6 +77,17 @@ app.controller('MainCtrl', function($scope, $http) {
                 $scope.roadSection = $scope.roads[i].Section;
                 $scope.roadLocation = $scope.roads[i].Location;
                 $scope.roadGPS = $scope.roads[i].GPS;
+            }
+        }
+        
+        for (i = 0; i < $scope.archivedValues.length; i++) {
+            if ($scope.archivedValues[i] == x) {
+                $scope.roadID = $scope.archivedValues[i].ID;
+                $scope.roadCode = $scope.archivedValues[i].Code;
+                $scope.roadType = $scope.archivedValues[i].Type;
+                $scope.roadSection = $scope.archivedValues[i].Section;
+                $scope.roadLocation = $scope.archivedValues[i].Location;
+                $scope.roadGPS = $scope.archivedValues[i].GPS;
             }
         }
 
@@ -178,6 +191,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.managerMode = false;
         $scope.contractorMode = false;
         $scope.showArchives = false;
+        $scope.showAddProject = false;
         $scope.loginUsername = "";
         $scope.loginPassword = "";
     }
@@ -237,6 +251,22 @@ app.controller('MainCtrl', function($scope, $http) {
             }
         }
         
+        for (i = 0; i < $scope.archivedProjects.length; i++) {
+            if ($scope.archivedProjects[i] == x) {
+                $scope.currentComments = $scope.archivedProjects[i].Comments;
+                $scope.currentProblems = $scope.archivedProjects[i].Problems;
+                $scope.currentWorks = $scope.archivedProjects[i].Works;
+                $scope.projectID = $scope.archivedProjects[i].ID;
+                $scope.projectRoad = $scope.archivedProjects[i].Road;
+                $scope.projectName = $scope.archivedProjects[i].Name;
+                $scope.projectStatus = $scope.archivedProjects[i].Status;
+                $scope.projectStartDate = $scope.archivedProjects[i].StartDate;
+                $scope.projectEndDate = $scope.archivedProjects[i].EndDate;
+                $scope.projectContractor = $scope.archivedProjects[i].Contractor;
+                
+            }
+        }
+        
         
 
     }
@@ -277,7 +307,7 @@ app.controller('MainCtrl', function($scope, $http) {
         $scope.showProjectRoad = false
         $scope.showAddRoad = false;
         $scope.showDeleteRoad = false;
-        $scope.showDeleteProject = true;
+        $scope.showDeleteProject = false;
         $scope.showAddProject = true;
         $scope.showDeleteProject = false;
         $scope.showEditProject = false;
@@ -372,7 +402,6 @@ app.controller('MainCtrl', function($scope, $http) {
                   $scope.loginVisable = $scope.loginVisable = false;
                   $scope.navVisable = $scope.navVisable = true;
                   $scope.navVisableInspector = false;
-                  $scope.navVisableContractor = false;
                   $scope.name = $scope.loginUsername.toUpperCase();
                   $scope.showUpdates = true;
                   $scope.managerMode = true;
@@ -386,7 +415,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //----------------GET ROAD INFO FROM HTTPGET---------------------
 
-    $scope.roadCall = $http.get('https://track.sim.vuw.ac.nz/api/aaa/road_dir.json')
+    $scope.roadCall = $http.get('https://track.sim.vuw.ac.nz/api/acbbbb/road_dir.json')
         .then(
             function successCall(response) {
                 $scope.roads = response.data.Roads;
@@ -395,7 +424,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //-----------GET PROJECT INFO FROM HTTPGET -------------------------------
 
-    $scope.projectCall = $http.get('https://track.sim.vuw.ac.nz/api/acbbb/project_dir.json')
+    $scope.projectCall = $http.get('https://track.sim.vuw.ac.nz/api/acbbbb/project_dir.json')
         .then(
             function successCall(response) {
                 $scope.projects = response.data.Projects;
@@ -423,7 +452,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
 
     //-------------ADD ROAD TO JSON SERVER----------------------------------
-    var addLink = 'https://track.sim.vuw.ac.nz/api/aaa/update.road.json';
+    var addLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.road.json';
 
     $scope.checkAddedRoad = function() {
 
@@ -462,7 +491,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //-------------------DELETE ROAD FROM JSON SERVER -------------------------------
     $scope.confirmDelete = function() {
-        var deleteLink = 'https://track.sim.vuw.ac.nz/api/aaa/delete.road.' + $scope.selected + '.json';
+        var deleteLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/delete.road.' + $scope.selected + '.json';
         var deleteRoadData = null;
         for (var i = 0; i < $scope.roads.length; i++) {
             if ($scope.selected == $scope.roads[i].ID) {
@@ -497,7 +526,7 @@ app.controller('MainCtrl', function($scope, $http) {
     };
 
     //------------------ADD PROJECT FROM JSON SERVER --------------------------------
-    var addProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+    var addProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.project.json';
 
     $scope.checkAddProject = function() {
       
@@ -560,7 +589,7 @@ app.controller('MainCtrl', function($scope, $http) {
 
     //-------------------DELETE PROJECT FORM JSON SERVER ---------------------------
     $scope.confirmDeleteProject = function(){
-    var deleteProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbb/delete.project.' + $scope.selected + '.json';
+    var deleteProjectLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/delete.project.' + $scope.selected + '.json';
     var deleteProjectData = null;
     var deleteComments = null;
     var deleteWorks = null;
@@ -633,7 +662,7 @@ app.controller('MainCtrl', function($scope, $http) {
 //-----------------------ADD COMMENT BOTH LOCALY AND TO SERVER  ----------------------------------------
    
     $scope.addComment = function() {
-      var addCommentLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+      var addCommentLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.project.json';
      
       var newComment = {
             "Author": $scope.name,
@@ -701,7 +730,7 @@ app.controller('MainCtrl', function($scope, $http) {
 //-----------SAVE CHANGES----------------------------------
 
   $scope.saveProject = function(){
-    var updateLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+    var updateLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.project.json';
     
     for(i = 0; i < $scope.projects.length; i++){
       if($scope.projects[i].ID == $scope.projectID){
@@ -771,7 +800,7 @@ app.controller('MainCtrl', function($scope, $http) {
 //--------------ADD PROBLEM TO SERVER--------------------------------------------------
 
   $scope.addProblem = function() {
-    var addProblemLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+    var addProblemLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.project.json';
      
       var newProblem = {
             "Author": $scope.name,
@@ -850,7 +879,7 @@ app.controller('MainCtrl', function($scope, $http) {
 //------------ADD WORKS TO SERVER --------------------------------
 
   $scope.editWorkInfo = function(){
-    var editWorksLink = 'https://track.sim.vuw.ac.nz/api/acbbb/update.project.json';
+    var editWorksLink = 'https://track.sim.vuw.ac.nz/api/acbbbb/update.project.json';
      
       var editedWorks = {
             "Type": $scope.editType,
@@ -923,7 +952,82 @@ app.controller('MainCtrl', function($scope, $http) {
      $scope.currentWorks.pop(workDel);
   }
 
-//---------------------------------------------------------------------
+//-------------ARCHIVE ROADS--------------------------------------------------------
+
+  $scope.archive = function(){
+    var toArchive = null;
+    for (var i = 0; i < $scope.roads.length; i++) {
+      if ($scope.selected == $scope.roads[i].ID) {
+                toArchive = {
+                    "ID": $scope.roads[i].ID,
+                    "Code": $scope.roads[i].Code,
+                    "Type": $scope.roads[i].Type,
+                    "Section": $scope.roads[i].Section,
+                    "Location": $scope.roads[i].Location,
+                    "GPS": $scope.roads[i].GPS
+                };
+            }
+        
+      }
+      $scope.archivedValues.push(toArchive);
+      $scope.roads.pop(toArchive);
+      $scope.deleteFeedback = "Archive Successful!";
+  }
+  
+//-------------ARCHIVE PROJECTS--------------------------------------------------------
+  
+  $scope.arcProject = function(){
+    var deleteProjectData = null;
+    var deleteComments = null;
+    var deleteWorks = null;
+    var deleteProblems = null;
+    
+    for (var i = 0; i < $scope.projects.length; i++) {
+            if ($scope.selected == $scope.projects[i].ID) {
+              for (z = 0; z < $scope.projects[i].Problems.length; z++) {
+                deleteProblems = [{
+                  "Author": $scope.projects[i].Problems[z].Author,
+                  "Text": $scope.projects[i].Problems[z].Text
+                }];
+              }
+                
+                
+              for (y = 0; y < $scope.projects[i].Comments.length; y++) {
+                deleteComments = [{
+                  "Author": $scope.projects[i].Comments[y].Author,
+                  "Text": $scope.projects[i].Comments[y].Text
+                }];
+              }
+                
+              
+              for (x = 0; x < $scope.projects[i].Works.length; x++) {
+                deleteWorks = [{
+                  "Type": $scope.projects[i].Works[x].Type,
+                  "SubContractors": $scope.projects[i].Works[x].SubContractor,
+                  "Status": $scope.projects[i].Works[x].Status
+                }];
+              }
+              
+                deleteProjectData = {
+                    "ID": $scope.projects[i].ID,
+                    "Road": $scope.projects[i].Road,
+                    "Name": $scope.projects[i].Name,
+                    "Status": $scope.projects[i].Status,
+                    "StartDate": $scope.projects[i].StartDate,
+                    "EndDate": $scope.projects[i].EndDate,
+                    "Contractor": $scope.projects[i].Contractor,
+                    "Problems": deleteProblems,
+                    "Comments": deleteComments,
+                    "Works": deleteWorks
+                };
+            }
+        }
+      $scope.archivedProjects.push(deleteProjectData);
+      $scope.projects.pop(deleteProjectData);
+      $scope.deleteProjectFeedback = "Archive Successful!";
+  }
+
+//--------------------------------------------------------------------
 
 
 });
