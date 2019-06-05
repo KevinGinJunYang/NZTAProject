@@ -50,6 +50,8 @@
                 <hr style="width:60%">
                 <a href="" class="navItems" ng-click="showProject()">Projects</a>
                 <hr style="width:60%">
+                <a href="" class="navItems" ng-click="showArchive()">Archive</a>
+                <hr style="width:60%">
                 <a href="" class="navItems" ng-click="showLogOut()">Log out</a>
                 <hr style="width:60%">
             </div>
@@ -139,7 +141,7 @@
                                 <input type="submit" class="basicInput" value="Create new Road" ng-click="showAdd()">
                             </td>
                             <td ng-show="managerMode">
-                                <input type="submit" class="basicInput" value="Delete Road" ng-click="showDelete()">
+                                <input type="submit" class="basicInput" value="Delete/Archive Road" ng-click="showDelete()">
                             </td>
                         </table>
                     </p1>
@@ -194,8 +196,8 @@
                 <h1 class="heading2">Projects</h1>
 
                 <div class="projectsButton" ng-show="managerMode">
-                    <input type="submit" class="projectButton" value="Create existing project" ng-click="createProject()">
-                    <input type="submit" class="projectButton" value="Delete existing project" ng-click="deleteProject()">
+                    <input type="submit" class="projectButton" value="Create project" ng-click="createProject()">
+                    <input type="submit" class="projectButton" value="Delete/Archive project" ng-click="deleteProject()">
                 </div>
                 <div class="roadOptions" style="margin-top:75px">
                     <div style="margin-top: 50px">
@@ -289,6 +291,8 @@
                     <td><input type="submit" class="basicInput" value="Delete Problem" ng-click="deleteProblem()"></td>
                     <td ng-show="contractorMode"><input type="submit" class="basicInput" value="Add Works" ng-click="editWorks()"></td>
                     <td ng-show="contractorMode"><input type="submit" class="basicInput" value="Delete Works" ng-click="deleteWorks()"></td>
+                    <td ng-show="managerMode"><input type="submit" class="basicInput" value="Add Works" ng-click="editWorks()"></td>
+                    <td ng-show="managerMode"><input type="submit" class="basicInput" value="Delete Works" ng-click="deleteWorks()"></td>
                     
                 </tr>
             </table>
@@ -348,6 +352,7 @@
 
             </table>
             <input type="submit" class="basicInput deleteButton" value="Delete Road " ng-click="confirmDelete(n)">
+            <input type="submit" class="basicInput deleteButton" value="Archive Road " ng-click="archive(n)">
             <p class="deleteButton" ng-bind="deleteFeedback"></p>
         </div>
     </div>
@@ -388,20 +393,27 @@
                 <input type="date" class="addRoad basicInput" placeholder="End Date"  ng-model="projectEndDate">
                 <br> Road Contractor:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Contractor" required ng-model="projectContractor">
+                <input type="text" class="addRoad basicInput" placeholder="Contractor"  ng-model="projectContractor">
                 <br> Road Problems:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Author" required ng-model="projectProblemAuthor">
-                <input type="text" class="addRoad basicInput" placeholder="Problem" required ng-model="projectProblemText">
+                <input type="text" class="addRoad basicInput" placeholder="Author"  ng-model="projectProblemAuthor">
+                <input type="text" class="addRoad basicInput" placeholder="Problem"  ng-model="projectProblemText">
                 <br> Road Comment:
                 <br>
                 <input type="text" class="addRoad basicInput" placeholder="Author" ng-model="projectCommentAuthor">
                 <input type="text" class="addRoad basicInput" placeholder="Comment" ng-model="projectCommentText">
                 <br> Road Works:
                 <br>
-                <input type="text" class="addRoad basicInput" placeholder="Type" required ng-model="projectWorksType">
-                <input type="text" class="addRoad basicInput" placeholder="SubContractor" required ng-model="projectWorksSubContractor">
-                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="projectWorksStatus">
+                <input type="text" class="addRoad basicInput" placeholder="Type"  ng-model="projectWorksType">
+                <input type="text" class="addRoad basicInput" placeholder="SubContractor"  ng-model="projectWorksSubContractor">
+                <input list="statusList2" class="addRoad basicInput" placeholder="Status"  ng-model="projectWorksStatus">
+                <datalist id="statusList2">
+                      <option value="Done">
+                      <option value="On-going">
+                      <option value="Scheduled">
+                      <option value="Postponed">
+                      <option value="Cancelled">
+                    </datalist>
                 <br>
                 <input type="submit" class="addRoadButton basicInput" value="Add Project" ng-click="checkAddProject()">
                 <p ng-bind="projectFeedback" style="margin-bottom:50px"></p>
@@ -427,6 +439,7 @@
                 </tr>
             </table>
             <input type="submit" class="basicInput deleteButton" value="Delete Project " ng-click="confirmDeleteProject()">
+            <input type="submit" class="basicInput deleteButton" value="Archive Project " ng-click="arcProject()">
             <p class="deleteButton" ng-bind="deleteProjectFeedback"></p>
         </div>
     </div>
@@ -577,7 +590,14 @@
                 <br>
                 <input type="text" class="addRoad basicInput" placeholder="Type" required ng-model="editType">
                 <input type="text" class="addRoad basicInput" placeholder="Sub Contractor" required ng-model="editContractor">
-                <input type="text" class="addRoad basicInput" placeholder="Status" required ng-model="editStatus">
+                <input list="workType" class="addRoad basicInput" placeholder="Status" required ng-model="editStatus">
+                <datalist id="workType">
+                      <option value="done">
+                      <option value="on-going">
+                      <option value="scheduled">
+                      <option value="postponed">
+                      <option value="cancelled">
+                    </datalist>
                 <br>
                 <input type="submit" class="addRoadButton basicInput" value="Add Works" ng-click="editWorkInfo()">
                 <p ng-bind="addWorksFeedback" style="margin-bottom:50px"></p>
@@ -610,6 +630,26 @@
  
  
  <!---------------------------------------------------->
+ <div ng-show="showArchives">
+        <div class="contentArea">
+            <div class="road">
+                <div style="margin-top:80px">
+                    <h1 class="loginTitle"><b>Archive</b></h1>
+                </div>
+                <h1 class="heading2">Archived Data</h1>
+                <div class="roadOptions" style="margin-top:75px">
+                    <div style="margin-top: 50px">
+                        <h1 class="heading3">Archived Roads:</h1>
+                        <hr>
+                        <li ng-repeat="item in archivedValues" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showHide(item)">{{item.Location}}</a></li>
+                        <h1 class="heading3" style="margin-top:80px">Archived Projects:</h1>
+                        <hr>
+                        <li ng-repeat="x in archivedProjects" style="margin-top:30px"><a href="" class="roadLinks" ng-click="showProjectInfo(x)">{{x.Name}} ({{x.Status}})</a></li>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </body>
 
